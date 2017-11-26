@@ -84,7 +84,10 @@ Ya con ello, ejecutamos las _migraciones_ mediante el comando:
 
 `python manage.py migrate` 
 
-Con ello deberia aparecer una carpeta llamada _migrations_ en nuestra carpeta _polls_ donde el archivo _0001_initial.py_ contiene nuestros modelos.
+Con ello deberia aparecer una carpeta llamada _migrations_ en nuestra carpeta _polls_ donde el archivo _0001_initial.py_ contiene nuestros modelos. Por último, para el guardado de datos, necesitamos crear un superusuario o _admin_ con el comando `python manage.py createsuperuser` el cual nos pedirá un nombre de usuario, email y contraseña.
+**Nota:** La terminal no muestra la contraseña asi que tomense su tiempo para escribirla sin errores. Una vez finalizada la creación, ejecute el servidor y agreguen a la URL la palabra **_/admin_** de esta manera: `http://127.0.0.1:8000/admin`. Ingrese su usuario y contraseña para proceder con el panel de administración. :tada: ¡Felicidades!
+
+En este panel de administración podrá visualizar los modelos y agregar datos siempre y cuando incluya los modelos en el archivo _admin.py_ de su aplicación _polls_.
 
 [1]: https://tutorial.djangogirls.org/es/
 [2]: http://librosweb.es/libro/django_1_0/capitulo_5/el_patron_de_diseno_mtv.html
