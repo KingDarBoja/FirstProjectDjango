@@ -1,0 +1,10 @@
+li a {
+    color: blue;
+    font-size: 24px;
+}
+
+body {
+    color: white;
+    background: url('images/background-python.png');
+    background-position: top center;
+}
