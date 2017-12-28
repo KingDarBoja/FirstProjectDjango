@@ -1,10 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'polls/base.html' %}
+
+{% block main_content %}
 
 {% if latest_questions %}
     <ul>
@@ -16,5 +12,4 @@
     <p> No tienes ninguna pregunta. Agrega más. </p>
 {% endif %}
 
-</body>
-</html>
+{% endblock %}
