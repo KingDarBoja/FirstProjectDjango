@@ -107,7 +107,7 @@ se debe utilizar _template tags_ o etiquetas de plantilla en el documento HTML. 
 
 Con ello, en nuestro documento _index.html_ incluimos el siguiente código:
 
-`
+```
 {% if latest_questions %}
     <ul>
         {% for question in latest_questions %}
@@ -117,7 +117,7 @@ Con ello, en nuestro documento _index.html_ incluimos el siguiente código:
 {% else %}
     <p> No tienes ninguna pregunta. Agrega más. </p>
 {% endif %}
-`
+```
 
 Donde se revisa si existen elementos en nuestro objeto **Question** (creado en el archivo models.py) el cual es inspeccionado al cargar la página (en la definición de index dentro de views.py). Si hay preguntas almacenadas en nuestra base de datos, itera cada uno de los elementos en dicho objeto y los incluye en el _index.html_
 como una lista sin ordenar. 
