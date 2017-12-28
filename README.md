@@ -85,9 +85,46 @@ Ya con ello, ejecutamos las _migraciones_ mediante el comando:
 `python manage.py migrate` 
 
 Con ello deberia aparecer una carpeta llamada _migrations_ en nuestra carpeta _polls_ donde el archivo _0001_initial.py_ contiene nuestros modelos. Por último, para el guardado de datos, necesitamos crear un superusuario o _admin_ con el comando `python manage.py createsuperuser` el cual nos pedirá un nombre de usuario, email y contraseña.
-**Nota:** La terminal no muestra la contraseña asi que tomense su tiempo para escribirla sin errores. Una vez finalizada la creación, ejecute el servidor y agreguen a la URL la palabra **_/admin_** de esta manera: `http://127.0.0.1:8000/admin`. Ingrese su usuario y contraseña para proceder con el panel de administración. :tada: ¡Felicidades!
+**Nota:** La terminal no muestra la contraseña asi que tomense su tiempo para escribirla sin errores. Una vez finalizada la creación, ejecute el servidor y agreguen a la URL la palabra **_/admin_** de esta manera: `http://127.0.0.1:8000/admin`. Ingrese su usuario y contraseña para proceder con el panel de administración. 
+
+:tada: ¡Felicidades! Ya puede obtener datos desde la base de datos y mostrarla en el navegador.
 
 En este panel de administración podrá visualizar los modelos y agregar datos siempre y cuando incluya los modelos en el archivo _admin.py_ de su aplicación _polls_.
+
+Agregando las plantillas (Templates)
+====
+
+Django permite separar tanto la programación del lado del **cliente** como del lado del **servidor**, es decir, la experiencia de usuario de la administración del sitio y la gestión de bases de datos. En nuestro caso, HTML se encarga exclusivamente de todo lo relacionado al diseño de nuestra página web mientras que Python gestiona
+todo lo del servido (mediante Django por supuesto). Esto se debe a que un documento web (HTML) no puede leer un código Python, por lo que la manera de hacerlo es a tráves de plantillas (o _Templates_).
+
+En este proyecto, creamos un nuevo directorio llamado _templates_ dentro de nuestra aplicación _polls_ y luego dentro de ese directorio, creamos otro directorio llamado _polls_. Aunque parezca algo redundante, la finalidad de este directorio es separar cualquier archivo de una _Third party app_ o aplicación de terceros,
+que contengan un archivo _index.html_ y evitar así conflictos entre nuestra aplicación y la de terceros.
+
+Para crear un archivo html, solo basta con hacer click derecho en el directorio `polls -> new -> html file` y nombrarlo _index.html_. Ahora, como necesitamos una plantilla para nuestro proyecto, ya sea con el sistema de plantillas DTL o Jinja2 (lease la documentación [aquí](https://docs.djangoproject.com/en/2.0/topics/templates/)),
+se debe utilizar _template tags_ o etiquetas de plantilla en el documento HTML. Estos comienzan y terminan con llaves y signos de porcentaje así: `{% condicionales aquí %}`, los cuales permiten transferir cosas de Python como cosas en HTML, mejorando así la facilidad y rapidez en desarrollar sitios web dinámicos.
+
+**Nota:** La explicación a continuación tiene en cuenta que ya ha llegado hasta este punto del curso (Sección 4: URLs y Vistas) y ya conoce de antemano la funcionalidad de los archivos _views.py_ y _models.py_.
+
+Con ello, en nuestro documento _index.html_ incluimos el siguiente código:
+
+`
+{% if latest_questions %}
+    <ul>
+        {% for question in latest_questions %}
+            <li><a href='/polls/{{question.id}}'><b> {{ question.question_text }}</b></a></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p> No tienes ninguna pregunta. Agrega más. </p>
+{% endif %}
+`
+
+Donde se revisa si existen elementos en nuestro objeto **Question** (creado en el archivo models.py) el cual es inspeccionado al cargar la página (en la definición de index dentro de views.py). Si hay preguntas almacenadas en nuestra base de datos, itera cada uno de los elementos en dicho objeto y los incluye en el _index.html_
+como una lista sin ordenar. 
+
+**Para que estas etiquetas funcionen es necesario referenciar el documento html a al archivo de vistas (views.py) de la aplicación.**
+
+**Correción de error:** Debido a cambios en las versiones Django 1.11 o superiores, el método _.render()_ solo necesita como entrada un diccionario, a diferencia del curso donde se usa una función _RequestContext_ para generar el contexto adecuado.
 
 [1]: https://tutorial.djangogirls.org/es/
 [2]: http://librosweb.es/libro/django_1_0/capitulo_5/el_patron_de_diseno_mtv.html
